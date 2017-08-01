@@ -99,25 +99,16 @@ resource "aws_security_group" "app" {
   vpc_id      = "${data.aws_vpc.vpc.id}"
 }
 
-resource "aws_security_group_rule" "app_ingress_http" {
+resource "aws_security_group_rule" "app_ingress" {
   type                     = "ingress"
-  from_port                = "80"
-  to_port                  = "80"
+  from_port                = "${var.port}"
+  to_port                  = "${var.port}"
   protocol                 = "tcp"
   source_security_group_id = "${var.alb_security_group_id}"
   security_group_id        = "${aws_security_group.app.id}"
 }
 
-resource "aws_security_group_rule" "app_ingress_https" {
-  type                     = "ingress"
-  from_port                = "443"
-  to_port                  = "443"
-  protocol                 = "tcp"
-  source_security_group_id = "${var.alb_security_group_id}"
-  security_group_id        = "${aws_security_group.app.id}"
-}
-
-resource "aws_security_group_rule" "app_ingress_ssh" {
+resource "aws_security_group_rule" "ssh_ingress" {
   type                     = "ingress"
   from_port                = "22"
   to_port                  = "22"
