@@ -1,3 +1,8 @@
+variable "app" {
+  type = "string"
+  description = "Name of application"
+}
+
 variable "ami_name" {
   type = "string"
   description = "Name of AMI to deploy via launch configuration"
@@ -82,9 +87,14 @@ variable "key_name" {
   description = "EC2 key name to be used for access to app server instances"
 }
 
-variable "security_groups" {
+variable "alb_security_group_id" {
   type = "list"
-  description = "List of security group IDs to associate with app servers"
+  description = "Security group ID associated with load balancer"
+}
+
+variable "bastion_security_group_id" {
+  type = "list"
+  description = "Security group ID associated with bastion host"
 }
 
 variable "port" {

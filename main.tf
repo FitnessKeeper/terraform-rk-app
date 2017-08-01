@@ -97,3 +97,42 @@ resource "aws_alb_target_group" "app" {
     create_before_destroy = true
   }
 }
+
+resource "aws_security_group" "app" {
+  name-prefix = "tf-sg-${data.aws_vpc.vpc.tags["Name"]}-${var.app}-"
+  description = "${var.app} application server security group"
+  vpc_id      = "${data.aws_vpc.vpc.id}"
+}
+
+resource "aws_security_group_rule" "app_ingress_http" {
+  type = "ingress"
+  from_port = "80"
+  to_port = "80"
+  source_security_group_id = "${var.alb_security_group}"
+  security_group_id = "${aws_security_group.app.id}"
+}
+
+resource "aws_security_group_rule" "app_ingress_https" {
+  type = "ingress"
+  from_port = "443"
+  to_port = "443"
+  source_security_group_id = "${var.alb_security_group}"
+  security_group_id = "${aws_security_group.app.id}"
+}
+
+resource "aws_security_group_rule" "app_ingress_ssh" {
+  type = "ingress"
+  from_port = "22"
+  to_port = "22"
+  source_security_group_id = "${var.bastion_security_group}"
+  security_group_id = "${aws_security_group.app.id}"
+}
+
+resource "aws_security_group_rule" "app_egress" {
+  type        = "egress"
+  from_port   = 0
+  to_port     = 65535
+  protocol    = "all"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = "${aws_security_group.app.id}"
+}
