@@ -44,7 +44,7 @@ resource "aws_autoscaling_group" "app" {
   tags = [
     {
       key                 = "Name"
-      value               = "tf-asg-${data.aws_vpc.vpc.tags["Name"]}-${var.app}-"
+      value               = "tf-asg-${data.aws_vpc.vpc.tags["Name"]}-${var.app}"
       propagate_at_launch = true
     },
     {
