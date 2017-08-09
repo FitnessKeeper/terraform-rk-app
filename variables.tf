@@ -3,9 +3,9 @@ variable "app" {
   description = "Name of application"
 }
 
-variable "ami_name" {
+variable "ami_id" {
   type        = "string"
-  description = "Name of AMI to deploy via launch configuration"
+  description = "ID of AMI to deploy via launch configuration"
 }
 
 variable "vpc_id" {

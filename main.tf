@@ -21,8 +21,8 @@ data "aws_ami" "app" {
   owners           = ["${data.aws_caller_identity.current.account_id}"]
 
   filter {
-    name   = "name"
-    values = ["${var.ami_name}"]
+    name   = "image-id"
+    values = ["${var.ami_id}"]
   }
 }
 
