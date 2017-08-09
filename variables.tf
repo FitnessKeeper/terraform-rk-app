@@ -138,3 +138,9 @@ variable "health_check_healthy_codes" {
   description = "HTTP response codes to be considered healthy"
   default     = "200,302"
 }
+
+variable "associate_public_ip_address" {
+  type        = "string"
+  description = "Associate a public IP address with app server instances"
+  default     = "false"
+}

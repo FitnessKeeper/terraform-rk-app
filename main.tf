@@ -67,7 +67,7 @@ resource "aws_launch_configuration" "app" {
   iam_instance_profile        = "${var.iam_instance_profile}"
   key_name                    = "${var.key_name}"
   security_groups             = ["${aws_security_group.app.id}"]
-  associate_public_ip_address = false
+  associate_public_ip_address = "${var.associate_public_ip_address}"
 
   lifecycle {
     create_before_destroy = true
