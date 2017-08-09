@@ -1,3 +1,8 @@
+variable "env" {
+  type        = "string"
+  description = "Environment"
+}
+
 variable "app" {
   type        = "string"
   description = "Name of application"
@@ -133,4 +138,3 @@ variable "health_check_healthy_codes" {
   description = "HTTP response codes to be considered healthy"
   default     = "200,302"
 }
-
