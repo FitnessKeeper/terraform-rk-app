@@ -30,8 +30,8 @@ resource "aws_autoscaling_group" "app" {
   name                      = "tf-asg-${aws_launch_configuration.app.name}"
   max_size                  = "${var.max_size}"
   min_size                  = "${var.min_size}"
-  desired_capacity          = "${var.desired_capacity}"
-  min_elb_capacity          = "${var.desired_capacity}"
+  #desired_capacity          = "${var.desired_capacity}"
+  min_elb_capacity          = "${var.min_size}"
   health_check_grace_period = "${var.health_check_grace_period}"
   health_check_type         = "${var.health_check_type}"
   termination_policies      = ["OldestLaunchConfiguration", "ClosestToNextInstanceHour", "Default"]
