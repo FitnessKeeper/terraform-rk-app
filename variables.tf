@@ -36,11 +36,11 @@ variable "min_size" {
   default     = "2"
 }
 
-variable "desired_capacity" {
-  type        = "string"
-  description = "Desired capacity at creation of auto scaling group"
-  default     = "2"
-}
+#variable "desired_capacity" {
+#  type        = "string"
+#  description = "Desired capacity at creation of auto scaling group"
+#  default     = "2"
+#}
 
 variable "health_check_grace_period" {
   type        = "string"
