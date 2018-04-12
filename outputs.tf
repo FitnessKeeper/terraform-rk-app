@@ -6,6 +6,10 @@ output "target_group_arn_suffix" {
   value = "${aws_alb_target_group.app.arn_suffix}"
 }
 
+output "target_group_name" {
+  value = "${aws_alb_target_group.app.name}"
+}
+
 output "ami_name" {
   value = "${data.aws_ami.app.name}"
 }
