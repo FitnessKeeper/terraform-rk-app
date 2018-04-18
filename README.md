@@ -27,6 +27,7 @@ Module Input Variables
 #### Optional
 
 - `alb_listener_arn`                 - ARN of ALB listener to which target group should be registered
+- `default_cooldown`                 - The amount of time, in seconds, after a scaling activity completes before another scaling activity can start. (default: 60)
 - `max_size`                         - Maximum size of auto scaling group (default: 4)
 - `min_size`                         - Minimum size of auto scaling group (default: 2)
 - `health_check_grace_period`        - Time in seconds to wait before beginning health checks (default: 120)

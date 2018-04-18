@@ -54,6 +54,11 @@ variable "wait_for_capacity_timeout" {
   default     = "10m"
 }
 
+variable "default_cooldown" {
+  default     = "60"
+  description = "The amount of time, in seconds, after a scaling activity completes before another scaling activity can start. (default: 60)"
+}
+
 variable "asg_subnets" {
   type        = "list"
   description = "List of subnet IDs in which to create app server instances"
