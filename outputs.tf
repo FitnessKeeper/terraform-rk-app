@@ -11,7 +11,7 @@ output "target_group_name" {
 }
 
 output "ami_name" {
-  value = data.aws_ami.app.name
+  value = data.aws_ami.app[0].name
 }
 
 output "autoscaling_group_arn" {
