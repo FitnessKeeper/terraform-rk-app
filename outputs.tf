@@ -10,9 +10,9 @@ output "target_group_name" {
   value = aws_alb_target_group.app.name
 }
 
-output "ami_name" {
-  value = data.aws_ami.app[0].name
-}
+#output "ami_name" {
+#  value = data.aws_ami.app[0].name
+#}
 
 output "autoscaling_group_arn" {
   value = aws_autoscaling_group.app.arn
