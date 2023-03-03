@@ -23,8 +23,8 @@ data "aws_ami" "app" {
   owners      = [data.aws_caller_identity.current.account_id]
 
   filter {
-    name   = "name"
-    values = ["tomcat-webapi-312"]
+    name   = "image-id"
+    values = [var.ami_id]
   }
 }
 
