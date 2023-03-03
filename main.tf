@@ -69,7 +69,7 @@ resource "aws_autoscaling_group" "app" {
 
 resource "aws_launch_configuration" "app" {
   name_prefix                 = "tf-lc-${data.aws_vpc.vpc.tags["Name"]}-${var.app}-"
-  image_id                    = var.ami_id ? null : data.aws_ami.app.id
+  image_id                    = var.ami_id ? null : data.aws_ami.app.id[0]
   instance_type               = var.instance_type
   iam_instance_profile        = var.iam_instance_profile
   key_name                    = var.key_name
