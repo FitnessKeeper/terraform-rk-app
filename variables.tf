@@ -11,7 +11,7 @@ variable "app" {
 variable "ami_id" {
   type        = string
   description = "ID of AMI to deploy via launch configuration"
-  default = ""
+  default     = ""
 }
 
 variable "vpc_id" {
