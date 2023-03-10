@@ -18,7 +18,7 @@ data "aws_vpc" "vpc" {
 }
 
 resource "aws_ssm_parameter" "ami_id_param" {
-  count       = var.ami_id != "" ? 1 : 0
+  count       = var.ami_id != null ? 1 : 0
   name        = "/${var.env}/webapi_ami_id"
   description = "AMI ID to be used for webapi_secondary/tertiary instances"
   type        = "String"
@@ -35,7 +35,7 @@ data "aws_ami" "app" {
 
   filter {
     name   = "image-id"
-    values = [coalesce(aws_ssm_parameter.ami_id_param.value, var.ami_id)]
+    values = [coalesce(aws_ssm_parameter.ami_id_param[0].value, var.ami_id)]
   }
 }
 
