@@ -17,13 +17,24 @@ data "aws_vpc" "vpc" {
   id = var.vpc_id
 }
 
+resource "aws_ssm_parameter" "ami_id_param" {
+  name  = "/${var.env}/webapi_ami_id"
+  description = "AMI ID to be used for webapi_secondary/tertiary instances"
+  type  = "String"
+  value = var.ami_id
+}
+
+#data "aws_ssm_parameter" "ami_id" {
+#  name = aws_ssm_parameter.ami_id_param.name
+#}
+
 data "aws_ami" "app" {
   most_recent = true
   owners      = [data.aws_caller_identity.current.account_id]
 
   filter {
     name   = "image-id"
-    values = [var.ami_id]
+    values = [coalesce(aws_ssm_parameter.ami_id_param.value, var.ami_id)]
   }
 }
 
@@ -132,4 +143,3 @@ resource "aws_security_group_rule" "app_egress" {
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.app.id
 }
-
