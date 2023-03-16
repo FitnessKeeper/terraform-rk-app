@@ -18,7 +18,7 @@ data "aws_vpc" "vpc" {
 }
 
 resource "aws_ssm_parameter" "ami_id_param" {
-  name        = "/${var.env}/webapi_ami_id"
+  name        = "/${var.env}/${var.app}/webapi_ami_id"
   description = "AMI ID to be used for webapi_secondary/tertiary instances"
   type        = "String"
   value       = var.ami_id
