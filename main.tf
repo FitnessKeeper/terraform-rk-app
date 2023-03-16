@@ -30,7 +30,7 @@ data "aws_ami" "app" {
 
   filter {
     name   = "image-id"
-    values = [coalesce(aws_ssm_parameter.ami_id_param.value, var.ami_id)]
+    values = [var.ami_id]
   }
 }
 
