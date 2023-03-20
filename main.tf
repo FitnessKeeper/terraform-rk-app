@@ -50,23 +50,21 @@ resource "aws_autoscaling_group" "app" {
   launch_configuration      = aws_launch_configuration.app.name
   vpc_zone_identifier       = var.asg_subnets
 
-  tags = [
-    {
-      key                 = "Name"
-      value               = "AS-${var.env}-${var.app}"
-      propagate_at_launch = true
-    },
-    {
-      key                 = "App"
-      value               = var.app
-      propagate_at_launch = true
-    },
-    {
-      key                 = "CrowdStrikeEnv"
-      value               = "production"
-      propagate_at_launch = true
-    },
-  ]
+  tag {
+    key                 = "Name"
+    value               = "AS-${var.env}-${var.app}"
+    propagate_at_launch = true
+  }
+  tag {
+    key                 = "App"
+    value               = var.app
+    propagate_at_launch = true
+  }
+  tag {
+    key                 = "CrowdStrikeEnv"
+    value               = "production"
+    propagate_at_launch = true
+  }
 
   lifecycle {
     create_before_destroy = true
