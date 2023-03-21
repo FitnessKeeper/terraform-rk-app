@@ -144,4 +144,3 @@ variable "associate_public_ip_address" {
   description = "Associate a public IP address with app server instances"
   default     = "false"
 }
-
