@@ -17,11 +17,15 @@ data "aws_vpc" "vpc" {
   id = var.vpc_id
 }
 
+data "aws_ssm_parameter" "ami_id_param" {
+  name = "/${var.env}/${var.app}/webapi_ami_id"
+}
+
 resource "aws_ssm_parameter" "ami_id_param" {
   name        = "/${var.env}/${var.app}/webapi_ami_id"
   description = "AMI ID to be used for webapi_secondary/tertiary instances"
   type        = "String"
-  value       = var.ami_id
+  value       = var.ami_id == null ? data.aws_ssm_parameter.ami_id_param.value : var.ami_id
 }
 
 data "aws_ami" "app" {
