@@ -10,7 +10,7 @@ variable "app" {
 
 variable "ami_id" {
   type        = string
-  description = "ID of AMI to deploy via launch configuration"
+  description = "ID of AMI to deploy via launch configuration. This variable is sticky. You must populate it with a valid AMI ID the first time this module is applied. After that it is optional."
   default     = ""
 }
 

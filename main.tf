@@ -21,17 +21,16 @@ resource "aws_ssm_parameter" "ami_id_param" {
   name           = "/${var.env}/${var.app}/webapi_ami_id"
   description    = "AMI ID to be used for webapi_secondary/tertiary instances"
   type           = "String"
-  insecure_value = var.ami_id
+  # This is a bit tricky. When ami_id is "" we want to lookup the existing value from the data object to make this sticky/noop. When it's passed we want to set the new value passed.
+  insecure_value = var.ami_id != "" ? var.ami_id : nonsensitive(data.aws_ssm_parameter.ami_id_param[0].value)
+  overwrite      = true
+  data_type      = "aws:ec2:image"
 }
 
-data "aws_ami" "app" {
-  most_recent = true
-  owners      = [data.aws_caller_identity.current.account_id]
-
-  filter {
-    name   = "image-id"
-    values = [aws_ssm_parameter.ami_id_param.value]
-  }
+data "aws_ssm_parameter" "ami_id_param" {
+  # Only create this data object when var.ami_id is empty string (the default value when not set)
+  count = var.ami_id != "" ? 0 : 1
+  name  = "/${var.env}/${var.app}/webapi_ami_id"
 }
 
 resource "aws_autoscaling_group" "app" {
@@ -73,7 +72,7 @@ resource "aws_autoscaling_group" "app" {
 
 resource "aws_launch_configuration" "app" {
   name_prefix                 = "tf-lc-${data.aws_vpc.vpc.tags["Name"]}-${var.app}-"
-  image_id                    = data.aws_ami.app.id
+  image_id                    = aws_ssm_parameter.ami_id_param.insecure_value
   instance_type               = var.instance_type
   iam_instance_profile        = var.iam_instance_profile
   key_name                    = var.key_name
