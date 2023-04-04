@@ -11,7 +11,7 @@ output "target_group_name" {
 }
 
 output "ami_name" {
-  value = data.aws_ami.app.name
+  value = aws_ssm_parameter.ami_id_param.insecure_value
 }
 
 output "autoscaling_group_arn" {
