@@ -72,7 +72,7 @@ resource "aws_autoscaling_group" "app" {
 
 resource "aws_launch_configuration" "app" {
   name_prefix                 = "tf-lc-${data.aws_vpc.vpc.tags["Name"]}-${var.app}-"
-  image_id                    = aws_ssm_parameter.ami_id_param.insecure_value
+  image_id                    = var.ami_id != "" ? var.ami_id : nonsensitive(data.aws_ssm_parameter.ami_id_param[0].value)
   instance_type               = var.instance_type
   iam_instance_profile        = var.iam_instance_profile
   key_name                    = var.key_name
